@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import com.yogarn.model.Products;
 import com.yogarn.service.ProductsService;
+import javax.swing.text.*;
 
 public class ViewByTypeGUI extends JFrame {
     public ViewByTypeGUI(JFrame parentFrame) {
@@ -16,7 +17,7 @@ public class ViewByTypeGUI extends JFrame {
         header.setFont(new Font("Arial", Font.BOLD, 18));
         add(header, BorderLayout.NORTH);
 
-        JTextArea outputArea = new JTextArea(15, 50);
+        JTextPane outputArea = new JTextPane();
         outputArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(outputArea);
         add(scrollPane, BorderLayout.CENTER);
@@ -39,26 +40,44 @@ public class ViewByTypeGUI extends JFrame {
             if (!type.isEmpty()) {
                 ProductsService productService = new ProductsService();
                 ArrayList<Products> products = productService.getProductsByType(type);
-                if (products.isEmpty()) {
-                    outputArea.setText("No products found for type: " + type + "\n");
-                } else {
-                    outputArea.setText("Products of type " + type + ":\n");
-                    for (Products product : products) {
-                        outputArea.append("SKU: " + product.getSku() + ", Type: " + product.getProductType() + ", Price: " + product.getPrice() + "\n");
+                StyledDocument doc = outputArea.getStyledDocument();
+
+                Style headerStyle = outputArea.addStyle("HeaderStyle", null);
+                StyleConstants.setBackground(headerStyle, Color.GRAY);
+                StyleConstants.setForeground(headerStyle, Color.WHITE);
+                StyleConstants.setBold(headerStyle, true);
+
+                Style normalStyle = outputArea.addStyle("NormalStyle", null);
+                StyleConstants.setForeground(normalStyle, Color.BLACK);
+
+                try {
+                    if (products.isEmpty()) {
+                        outputArea.setText("No products found for type: " + type + "\n");
+                    } else {
+                        String headerText = String.format("%-10s | %-20s | %-10s", "SKU", "Product Type", "Price");
+                        doc.insertString(doc.getLength(), headerText + "\n", headerStyle);
+                        doc.insertString(doc.getLength(), "--------------------------------------------------------------\n", normalStyle);
+
+                        for (Products product : products) {
+                            String formattedProduct = String.format("%-10s | %-20s | %-10.2f", 
+                                                                    product.getSku(), 
+                                                                    product.getProductType(), 
+                                                                    product.getPrice());
+                            doc.insertString(doc.getLength(), formattedProduct + "\n", normalStyle);
+                        }
                     }
+                } catch (BadLocationException ex) {
+                    ex.printStackTrace();
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Please enter a product type.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Masukkin typenya dulu kocak emang aku bisa ramal po?", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        // Back button action
         backButton.addActionListener(e -> {
-            parentFrame.setVisible(true); // Show main menu
-            dispose(); // Close this window
+            parentFrame.setVisible(true); 
+            dispose();
         });
-
-        backButton.setVisible(true);
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
