@@ -2,7 +2,6 @@ package com.yogarn.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class App {
     public static void main(String[] args) {
@@ -10,7 +9,7 @@ public class App {
     }
 
     private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Product Management System");
+        JFrame frame = new JFrame("Sistem Manajemen Produk");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 500);
         frame.setLayout(new BorderLayout());
@@ -26,20 +25,24 @@ public class App {
         backgroundPanel.setLayout(new BorderLayout());
         frame.add(backgroundPanel);
 
-        JLabel header = new JLabel("Product Management Menu", JLabel.CENTER);
+        JLabel header = new JLabel("Menu Manajemen Produk", JLabel.CENTER);
         header.setFont(new Font("Arial", Font.BOLD, 20));
         frame.add(header, BorderLayout.NORTH);
 
         JPanel menuPanel = new JPanel();
         menuPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        JButton viewAllButton = new JButton("View All Products");
-        JButton viewByTypeButton = new JButton("View by Type");
-        JButton viewBySKUButton = new JButton("View by SKU");
-        JButton updateButton = new JButton("Update Product");
-        JButton deleteButton = new JButton("Delete Product");
-        JButton addButton = new JButton("Add Product");
-        JButton exitButton = new JButton("Exit");
+        JButton viewAllButton = new JButton("Lihat Semua Produk");
+        JButton viewByTypeButton = new JButton("Lihat Berdasarkan Tipe");
+        JButton viewBySKUButton = new JButton("Lihat Berdasarkan SKU");
+        JButton updateButton = new JButton("Update Produk");
+        JButton deleteButton = new JButton("Hapus Produk");
+        JButton addButton = new JButton("Tambah Produk");
+        JButton exitButton = new JButton("Keluar");
+        
+        JButton productPriceRangeButton = new JButton("Lihat Produk Berdasarkan Rentang Harga");
+        JButton fastestShippingCarriersButton = new JButton("Pengiriman Cepat");
+        JButton highestProductionVolumeSupplierButton = new JButton("Pemasok dengan Volume Produksi Terbanyak");
 
         menuPanel.add(viewAllButton);
         menuPanel.add(viewByTypeButton);
@@ -48,6 +51,9 @@ public class App {
         menuPanel.add(deleteButton);
         menuPanel.add(addButton);
         menuPanel.add(exitButton);
+        menuPanel.add(productPriceRangeButton);
+        menuPanel.add(fastestShippingCarriersButton);
+        menuPanel.add(highestProductionVolumeSupplierButton);
 
         frame.add(menuPanel, BorderLayout.CENTER);
 
@@ -57,8 +63,11 @@ public class App {
         updateButton.addActionListener(e -> showMessage(frame, "Update Product belum ada nanti dulu ya."));
         deleteButton.addActionListener(e -> showMessage(frame, "Delete Product belum ada nanti dulu ya."));
         addButton.addActionListener(e -> showMessage(frame, "Add Product belum ada nanti dulu ya."));
-        exitButton.addActionListener(e -> System.exit(0));
 
+        productPriceRangeButton.addActionListener(e -> new ViewRangeGui(frame).setVisible(true));
+        fastestShippingCarriersButton.addActionListener(e -> new ViewShippingGui(frame).setVisible(true));
+        highestProductionVolumeSupplierButton.addActionListener(e -> new ViewHighestGui(frame).setVisible(true));
+        exitButton.addActionListener(e -> System.exit(0));
         frame.setVisible(true);
     }
 

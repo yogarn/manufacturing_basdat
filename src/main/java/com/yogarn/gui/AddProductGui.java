@@ -1,16 +1,15 @@
 package com.yogarn.gui;
 
-import java.awt.GridLayout;
-
 import javax.swing.*;
+import java.awt.*;
 import com.yogarn.model.Products;
 import com.yogarn.service.ProductsService;
 
 public class AddProductGui extends JFrame {
     private JTextField skuField, productTypeField, priceField;
 
-    public AddProductGui(JFrame parentFrame) {
-        setTitle("Add Product");
+    public AddProductGui(ViewAllProductsGUI parentFrame) {
+        setTitle("Tambah Produk");
         setSize(400, 300);
         setLayout(new GridLayout(5, 2));
 
@@ -18,18 +17,18 @@ public class AddProductGui extends JFrame {
         skuField = new JTextField();
         add(skuField);
 
-        add(new JLabel("Product Type:"));
+        add(new JLabel("Tipe Produk:"));
         productTypeField = new JTextField();
         add(productTypeField);
 
-        add(new JLabel("Price:"));
+        add(new JLabel("Harga:"));
         priceField = new JTextField();
         add(priceField);
 
-        JButton saveButton = new JButton("Save");
+        JButton saveButton = new JButton("Simpan");
         add(saveButton);
         
-        JButton cancelButton = new JButton("Cancel");
+        JButton cancelButton = new JButton("Batal");
         add(cancelButton);
 
         saveButton.addActionListener(e -> {
@@ -43,6 +42,7 @@ public class AddProductGui extends JFrame {
 
             if (result > 0) {
                 JOptionPane.showMessageDialog(this, "Wes tak simpen di ssms");
+                parentFrame.ambildata("Urutkan Berdasarkan SKU");  
                 parentFrame.setVisible(true);
                 dispose();
             } else {
