@@ -3,9 +3,9 @@ package com.yogarn.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 import com.yogarn.model.Products;
 import com.yogarn.service.ProductsService;
-import javax.swing.text.*;
 
 public class ViewAllProductsGUI extends JFrame {
     public ViewAllProductsGUI(JFrame parentFrame) {
@@ -17,9 +17,24 @@ public class ViewAllProductsGUI extends JFrame {
         header.setFont(new Font("Arial", Font.BOLD, 18));
         add(header, BorderLayout.NORTH);
 
-        JTextPane outputArea = new JTextPane();
-        outputArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(outputArea);
+        String[] columnNames = {"SKU", "Product Type", "Price"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+        ProductsService productService = new ProductsService();
+        ArrayList<Products> products = productService.getAllProducts();
+
+        for (Products product : products) {
+            Object[] row = {
+                product.getSku(),
+                product.getProductType(),
+                String.format("%.2f", product.getPrice())
+            };
+            tableModel.addRow(row);
+        }
+
+        JTable productTable = new JTable(tableModel);
+        productTable.setFillsViewportHeight(true);
+        JScrollPane scrollPane = new JScrollPane(productTable);
         add(scrollPane, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -34,35 +49,6 @@ public class ViewAllProductsGUI extends JFrame {
         buttonPanel.add(backButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        ProductsService productService = new ProductsService();
-        ArrayList<Products> products = productService.getAllProducts();
-
-        StyledDocument doc = outputArea.getStyledDocument();
-
-        Style headerStyle = outputArea.addStyle("HeaderStyle", null);
-        StyleConstants.setBackground(headerStyle, Color.GRAY);
-        StyleConstants.setForeground(headerStyle, Color.WHITE);
-        StyleConstants.setBold(headerStyle, true);
-
-        Style normalStyle = outputArea.addStyle("NormalStyle", null);
-        StyleConstants.setForeground(normalStyle, Color.BLACK);
-
-        try {
-            String headerText = String.format("%-15s | %-20s | %-15s", "SKU", "Product Type", "Price");
-            doc.insertString(doc.getLength(), headerText + "\n", headerStyle);
-            doc.insertString(doc.getLength(), "--------------------------------------------------------------\n", normalStyle);
-
-            for (Products product : products) {
-                String formattedProduct = String.format("%-15s | %-20s | %-15.2f", 
-                                                        product.getSku(), 
-                                                        product.getProductType(), 
-                                                        product.getPrice());
-                doc.insertString(doc.getLength(), formattedProduct + "\n", normalStyle);
-            }
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
-
         backButton.addActionListener(e -> {
             parentFrame.setVisible(true); 
             dispose();
@@ -74,7 +60,7 @@ public class ViewAllProductsGUI extends JFrame {
         });
 
         updateButton.addActionListener(e -> {
-            String sku = JOptionPane.showInputDialog(this, "Mau SKU yang mana coy?:");
+            String sku = JOptionPane.showInputDialog(this, "Enter SKU of product to update:");
             if (sku != null) {
                 new UpdateProductGui(this, sku).setVisible(true);
                 setVisible(false);
