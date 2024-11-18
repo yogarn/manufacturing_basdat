@@ -59,7 +59,7 @@ public class App {
 
         viewAllButton.addActionListener(e -> new ViewAllProductsGUI(frame).setVisible(true));
         viewByTypeButton.addActionListener(e -> new ViewByTypeGUI(frame).setVisible(true));
-        viewBySKUButton.addActionListener(e -> showMessage(frame, "View by SKU belum ada nanti dulu ya."));
+        viewBySKUButton.addActionListener(e ->new ViewBySkuGui(frame).setVisible(true));
         updateButton.addActionListener(e -> showMessage(frame, "Update Product belum ada nanti dulu ya."));
         deleteButton.addActionListener(e -> showMessage(frame, "Delete Product belum ada nanti dulu ya."));
         addButton.addActionListener(e -> showMessage(frame, "Add Product belum ada nanti dulu ya."));
