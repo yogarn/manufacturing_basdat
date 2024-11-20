@@ -35,9 +35,6 @@ public class App {
         JButton viewAllButton = new JButton("Lihat Semua Produk");
         JButton viewByTypeButton = new JButton("Lihat Berdasarkan Tipe");
         JButton viewBySKUButton = new JButton("Lihat Berdasarkan SKU");
-        JButton updateButton = new JButton("Update Produk");
-        JButton deleteButton = new JButton("Hapus Produk");
-        JButton addButton = new JButton("Tambah Produk");
         JButton exitButton = new JButton("Keluar");
         
         JButton productPriceRangeButton = new JButton("Lihat Produk Berdasarkan Rentang Harga");
@@ -47,9 +44,6 @@ public class App {
         menuPanel.add(viewAllButton);
         menuPanel.add(viewByTypeButton);
         menuPanel.add(viewBySKUButton);
-        menuPanel.add(updateButton);
-        menuPanel.add(deleteButton);
-        menuPanel.add(addButton);
         menuPanel.add(exitButton);
         menuPanel.add(productPriceRangeButton);
         menuPanel.add(fastestShippingCarriersButton);
@@ -60,9 +54,6 @@ public class App {
         viewAllButton.addActionListener(e -> new ViewAllProductsGUI(frame).setVisible(true));
         viewByTypeButton.addActionListener(e -> new ViewByTypeGUI(frame).setVisible(true));
         viewBySKUButton.addActionListener(e ->new ViewBySkuGui(frame).setVisible(true));
-        updateButton.addActionListener(e -> showMessage(frame, "Update Product belum ada nanti dulu ya."));
-        deleteButton.addActionListener(e -> showMessage(frame, "Delete Product belum ada nanti dulu ya."));
-        addButton.addActionListener(e -> showMessage(frame, "Add Product belum ada nanti dulu ya."));
 
         productPriceRangeButton.addActionListener(e -> new ViewRangeGui(frame).setVisible(true));
         fastestShippingCarriersButton.addActionListener(e -> new ViewShippingGui(frame).setVisible(true));
