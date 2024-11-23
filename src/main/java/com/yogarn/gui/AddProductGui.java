@@ -8,7 +8,7 @@ import com.yogarn.service.ProductsService;
 public class AddProductGui extends JFrame {
     private JTextField skuField, productTypeField, priceField;
 
-    public AddProductGui(ViewAllProductsGUI parentFrame) {
+    public AddProductGui(JFrame parentFrame) {
         setTitle("Tambah Produk");
         setSize(400, 300);
         setLayout(new GridLayout(5, 2));
@@ -42,7 +42,7 @@ public class AddProductGui extends JFrame {
 
             if (result > 0) {
                 JOptionPane.showMessageDialog(this, "Wes tak simpen di ssms");
-                parentFrame.ambildata("Urutkan Berdasarkan SKU");  
+                ((Dashboard) parentFrame).ambilData("Urutkan Berdasarkan SKU");  
                 parentFrame.setVisible(true);
                 dispose();
             } else {

@@ -9,7 +9,7 @@ public class UpdateProductGui extends JFrame {
     private JTextField productTypeField, priceField;
     private String sku;
 
-    public UpdateProductGui(ViewAllProductsGUI parentFrame, String sku) {
+    public UpdateProductGui(JFrame parentFrame, String sku) {
         this.sku = sku;
         setTitle("Update Produk");
         setSize(400, 300);
@@ -43,7 +43,7 @@ public class UpdateProductGui extends JFrame {
 
             if (result > 0) {
                 JOptionPane.showMessageDialog(this, "Product berhasil di update cuyyy");
-                parentFrame.ambildata("Urutkan Berdasarkan SKU"); 
+                ((Dashboard) parentFrame).ambilData("Urutkan Berdasarkan SKU"); 
                 parentFrame.setVisible(true);
                 dispose();
             } else {

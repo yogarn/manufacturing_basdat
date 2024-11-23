@@ -7,7 +7,7 @@ import com.yogarn.service.ProductsService;
 public class DeleteProductGui extends JFrame {
     private JTextField skuField;
 
-    public DeleteProductGui(ViewAllProductsGUI parentFrame) {
+    public DeleteProductGui(JFrame parentFrame) {
         setTitle("Hapus Produk");
         setSize(400, 200);
         setLayout(new GridLayout(3, 2));
@@ -35,7 +35,7 @@ public class DeleteProductGui extends JFrame {
 
             if (result > 0) {
                 JOptionPane.showMessageDialog(this, "Udah dihapus mbek sql ya.");
-                parentFrame.ambildata("Urutkan Berdasarkan SKU");
+                ((Dashboard) parentFrame).ambilData("Urutkan Berdasarkan SKU");
                 parentFrame.setVisible(true);
                 dispose();
             } else {
