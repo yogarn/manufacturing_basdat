@@ -22,7 +22,8 @@ public class Dashboard extends JFrame {
         setTitle("Dashboard - Sistem Manajemen Produk");
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setApplicationIcon("D:\\Kelas Basis Data\\Project\\manufacturing_basdat\\src\\main\\java\\com\\yogarn\\gui\\image.png");
+        setApplicationIcon(
+                "D:\\Kelas Basis Data\\Project\\manufacturing_basdat\\src\\main\\java\\com\\yogarn\\gui\\image.png");
         setLayout(new BorderLayout());
 
         JLabel header = new JLabel("Dashboard Manajemen Produk", JLabel.CENTER);
@@ -65,7 +66,6 @@ public class Dashboard extends JFrame {
         }
     }
 
-
     private JPanel createProductsTablePanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(Color.LIGHT_GRAY);
@@ -74,7 +74,7 @@ public class Dashboard extends JFrame {
         label.setFont(new Font("Arial", Font.BOLD, 16));
         panel.add(label, BorderLayout.NORTH);
 
-        String[] columnNames = {"SKU", "Tipe Produk", "Harga"};
+        String[] columnNames = { "SKU", "Tipe Produk", "Harga" };
         tableModel = new DefaultTableModel(columnNames, 0);
 
         JTable productTable = new JTable(tableModel);
@@ -83,11 +83,11 @@ public class Dashboard extends JFrame {
         panel.add(scrollPane, BorderLayout.CENTER);
 
         JPanel controlPanel = new JPanel(new BorderLayout());
-        sortComboBox = new JComboBox<>(new String[]{
-            "Pilih Opsi Urutkan",
-            "Urutkan Berdasarkan SKU",
-            "Urutkan Berdasarkan Tipe",
-            "Urutkan Berdasarkan Harga"
+        sortComboBox = new JComboBox<>(new String[] {
+                "Pilih Opsi Urutkan",
+                "Urutkan Berdasarkan SKU",
+                "Urutkan Berdasarkan Tipe",
+                "Urutkan Berdasarkan Harga"
         });
         sortComboBox.addActionListener(e -> sortData());
         controlPanel.add(sortComboBox, BorderLayout.NORTH);
@@ -124,7 +124,11 @@ public class Dashboard extends JFrame {
         if (sortCriteria != null) {
             switch (sortCriteria) {
                 case "Urutkan Berdasarkan SKU":
-                    products.sort((p1, p2) -> p1.getSku().compareTo(p2.getSku()));
+                    products.sort((p1, p2) -> {
+                        int num1 = Integer.parseInt(p1.getSku().substring(3));
+                        int num2 = Integer.parseInt(p2.getSku().substring(3));
+                        return Integer.compare(num1, num2);
+                    });
                     break;
                 case "Urutkan Berdasarkan Tipe":
                     products.sort((p1, p2) -> p1.getProductType().compareTo(p2.getProductType()));
@@ -138,9 +142,9 @@ public class Dashboard extends JFrame {
         tableModel.setRowCount(0);
         for (Products product : products) {
             Object[] row = {
-                product.getSku(),
-                product.getProductType(),
-                String.format("%.2f", product.getPrice())
+                    product.getSku(),
+                    product.getProductType(),
+                    String.format("%.2f", product.getPrice())
             };
             tableModel.addRow(row);
         }
@@ -161,7 +165,7 @@ public class Dashboard extends JFrame {
         label.setFont(new Font("Arial", Font.BOLD, 16));
         panel.add(label, BorderLayout.NORTH);
 
-        String[] columnNames = {"SKU", "Tipe Produk", "Harga"};
+        String[] columnNames = { "SKU", "Tipe Produk", "Harga" };
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
         JTable table = new JTable(tableModel);
@@ -184,14 +188,15 @@ public class Dashboard extends JFrame {
                 tableModel.setRowCount(0);
 
                 for (Products product : products) {
-                    tableModel.addRow(new Object[]{
-                        product.getSku(),
-                        product.getProductType(),
-                        String.format("%.2f", product.getPrice())
+                    tableModel.addRow(new Object[] {
+                            product.getSku(),
+                            product.getProductType(),
+                            String.format("%.2f", product.getPrice())
                     });
                 }
             } else {
-                JOptionPane.showMessageDialog(panel, "Masukkin dulu mas/mba saya tidak bisa menerawang pikiran anda", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "Masukkin dulu mas/mba saya tidak bisa menerawang pikiran anda",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -206,7 +211,7 @@ public class Dashboard extends JFrame {
         header.setFont(new Font("Arial", Font.BOLD, 18));
         panel.add(header, BorderLayout.NORTH);
 
-        String[] columnNames = {"SKU", "Product Type", "Price"};
+        String[] columnNames = { "SKU", "Product Type", "Price" };
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
         JTable productTable = new JTable(tableModel);
@@ -231,17 +236,19 @@ public class Dashboard extends JFrame {
                 tableModel.setRowCount(0);
 
                 if (product == null || product.getSku() == null) {
-                    JOptionPane.showMessageDialog(panel, "di database ra ono rek " + sku, "No Results", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "di database ra ono rek " + sku, "No Results",
+                            JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     Object[] row = {
-                        product.getSku(),
-                        product.getProductType(),
-                        String.format("%.2f", product.getPrice())
+                            product.getSku(),
+                            product.getProductType(),
+                            String.format("%.2f", product.getPrice())
                     };
                     tableModel.addRow(row);
                 }
             } else {
-                JOptionPane.showMessageDialog(panel, "Masukkin dulu mas/mba saya tidak bisa menerawang pikiran anda", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "Masukkin dulu mas/mba saya tidak bisa menerawang pikiran anda",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -257,9 +264,9 @@ public class Dashboard extends JFrame {
         panel.add(header, BorderLayout.NORTH);
 
         String[] columnNames = {
-            "Nama Supplier", "Rata-Rata Waktu Pengiriman", 
-            "Rata-Rata Biaya Produksi", "Rata-Rata Waktu Produksi", 
-            "Rata-Rata Volume Produksi"
+                "Nama Supplier", "Rata-Rata Waktu Pengiriman",
+                "Rata-Rata Biaya Produksi", "Rata-Rata Waktu Produksi",
+                "Rata-Rata Volume Produksi"
         };
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
@@ -274,11 +281,11 @@ public class Dashboard extends JFrame {
         tableModel.setRowCount(0);
         for (AverageSuppliers supplier : suppliers) {
             Object[] row = {
-                supplier.getSupplierName(),
-                String.format("%.2f", supplier.getAverageLeadTime()),
-                String.format("%.2f", supplier.getAverageManufacturingCosts()),
-                String.format("%.2f", supplier.getAverageManufacturingLeadTime()),
-                String.format("%.2f", supplier.getAverageProductionVolumes())
+                    supplier.getSupplierName(),
+                    String.format("%.2f", supplier.getAverageLeadTime()),
+                    String.format("%.2f", supplier.getAverageManufacturingCosts()),
+                    String.format("%.2f", supplier.getAverageManufacturingLeadTime()),
+                    String.format("%.2f", supplier.getAverageProductionVolumes())
             };
             tableModel.addRow(row);
         }
@@ -294,7 +301,7 @@ public class Dashboard extends JFrame {
         header.setFont(new Font("Arial", Font.BOLD, 18));
         panel.add(header, BorderLayout.NORTH);
 
-        String[] columnNames = {"Carrier Pengiriman", "Rata-Rata Biaya Pengiriman", "Rata-Rata Waktu Pengiriman"};
+        String[] columnNames = { "Carrier Pengiriman", "Rata-Rata Biaya Pengiriman", "Rata-Rata Waktu Pengiriman" };
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
         JTable table = new JTable(tableModel);
@@ -315,9 +322,9 @@ public class Dashboard extends JFrame {
 
         for (AverageShippingCarriers carrier : carriers) {
             Object[] row = {
-                carrier.getCarrier(),
-                String.format("%.2f", carrier.getAverageShippingCost()),
-                String.format("%.2f", carrier.getAverageShippingTime())
+                    carrier.getCarrier(),
+                    String.format("%.2f", carrier.getAverageShippingCost()),
+                    String.format("%.2f", carrier.getAverageShippingTime())
             };
             tableModel.addRow(row);
         }
@@ -331,7 +338,7 @@ public class Dashboard extends JFrame {
         header.setFont(new Font("Arial", Font.BOLD, 18));
         panel.add(header, BorderLayout.NORTH);
 
-        String[] columnNames = {"Rentang Harga", "Total Produk Terjual", "Total Produk", "Harga Rata-Rata"};
+        String[] columnNames = { "Rentang Harga", "Total Produk Terjual", "Total Produk", "Harga Rata-Rata" };
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
         JTable table = new JTable(tableModel);
@@ -346,10 +353,10 @@ public class Dashboard extends JFrame {
 
         for (ProductsPriceRange range : priceRanges) {
             Object[] row = {
-                range.getPriceRange(),
-                range.getTotalProductsSold(),
-                range.getTotalProducts(),
-                String.format("%.2f", range.getAveragePrice())
+                    range.getPriceRange(),
+                    range.getTotalProductsSold(),
+                    range.getTotalProducts(),
+                    String.format("%.2f", range.getAveragePrice())
             };
             tableModel.addRow(row);
         }
@@ -358,6 +365,6 @@ public class Dashboard extends JFrame {
     }
 
     // public static void main(String[] args) {
-    //     SwingUtilities.invokeLater(Dashboard::new);
+    // SwingUtilities.invokeLater(Dashboard::new);
     // }
 }

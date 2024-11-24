@@ -83,7 +83,11 @@ public class ViewAllProductsGUI extends JFrame {
         if (sortCriteria != null) {
             switch (sortCriteria) {
                 case "Urutkan Berdasarkan SKU":
-                    products.sort((p1, p2) -> p1.getSku().compareTo(p2.getSku()));
+                    products.sort((p1, p2) -> {
+                        int num1 = Integer.parseInt(p1.getSku().substring(3));
+                        int num2 = Integer.parseInt(p2.getSku().substring(3));
+                        return Integer.compare(num1, num2);
+                    });
                     break;
                 case "Urutkan Berdasarkan Tipe":
                     products.sort((p1, p2) -> p1.getProductType().compareTo(p2.getProductType()));
