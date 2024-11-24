@@ -1,12 +1,20 @@
-package com.yogarn.gui;
+package com.yogarn;
 
 import javax.swing.*;
+
+import com.yogarn.gui.Dashboard;
+import com.yogarn.gui.ViewAllProductsGUI;
+import com.yogarn.gui.ViewBySkuGui;
+import com.yogarn.gui.ViewByTypeGUI;
+import com.yogarn.gui.ViewHighestGui;
+import com.yogarn.gui.ViewRangeGui;
+import com.yogarn.gui.ViewShippingGui;
+
 import java.awt.*;
 
 public class App {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Dashboard::new);
-        //  SwingUtilities.invokeLater(Dashboard::new);
     }
 
     private static void createAndShowGUI() {
