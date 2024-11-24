@@ -34,12 +34,12 @@ public class DeleteProductGui extends JFrame {
             int result = service.deleteProduct(sku);
 
             if (result > 0) {
-                JOptionPane.showMessageDialog(this, "Udah dihapus mbek sql ya.");
+                JOptionPane.showMessageDialog(this, "Data berhasil dihapus.");
                 ((Dashboard) parentFrame).ambilData("Urutkan Berdasarkan SKU");
                 parentFrame.setVisible(true);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "gak ada datanya coy, aku gak nemu");
+                JOptionPane.showMessageDialog(this, "Data tidak ditemukan");
             }
         });
 

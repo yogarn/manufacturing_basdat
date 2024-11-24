@@ -41,12 +41,12 @@ public class AddProductGui extends JFrame {
             int result = service.addProduct(product);
 
             if (result > 0) {
-                JOptionPane.showMessageDialog(this, "Wes tak simpen di ssms");
+                JOptionPane.showMessageDialog(this, "data sudah tersimpan");
                 ((Dashboard) parentFrame).ambilData("Urutkan Berdasarkan SKU");  
                 parentFrame.setVisible(true);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "error cuy kok gak bisa ya?");
+                JOptionPane.showMessageDialog(this, "Kesalahan pada penyimpanan data, periksa kembali data yang dimasukkan");
             }
         });
 

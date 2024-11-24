@@ -42,12 +42,12 @@ public class UpdateProductGui extends JFrame {
             int result = service.updateProduct(product);
 
             if (result > 0) {
-                JOptionPane.showMessageDialog(this, "Product berhasil di update cuyyy");
+                JOptionPane.showMessageDialog(this, "Product berhasil di update");
                 ((Dashboard) parentFrame).ambilData("Urutkan Berdasarkan SKU"); 
                 parentFrame.setVisible(true);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "error ege yang bener");
+                JOptionPane.showMessageDialog(this, "Kesalahan pada penyimpanan data, periksa kembali data yang dimasukkan");
             }
         });
 
