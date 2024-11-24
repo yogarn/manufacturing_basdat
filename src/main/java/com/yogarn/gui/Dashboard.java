@@ -36,11 +36,12 @@ public class Dashboard extends JFrame {
         tabbedPane.addTab("Supplier Tertinggi", createHighestSuppliersPanel());
         tabbedPane.addTab("Rentang Harga", createPriceRangePanel());
         tabbedPane.addTab("Pengiriman Cepat", createShippingPanel());
+        getContentPane().setBackground(Color.lightGray);
 
         tabbedPane.addChangeListener(e -> {
             int selectedTabIndex = tabbedPane.getSelectedIndex();
             switch (selectedTabIndex) {
-                case 0 -> getContentPane().setBackground(Color.BLUE);
+                case 0 -> getContentPane().setBackground(Color.lightGray);
                 case 1 -> getContentPane().setBackground(Color.PINK);
                 case 2 -> getContentPane().setBackground(Color.CYAN);
                 case 3 -> getContentPane().setBackground(Color.YELLOW);
